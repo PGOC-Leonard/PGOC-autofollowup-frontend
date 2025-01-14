@@ -53,7 +53,8 @@ const LoginPage = () => {
       const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
         },
         body: JSON.stringify(loginData),
       });
@@ -125,7 +126,7 @@ const LoginPage = () => {
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
-        <a href="#">Forgot your password?</a>
+        <a href="#/forgot-password">Forgot your password?</a>
         
         {/* Button that becomes disabled and shows a loading spinner while waiting for response */}
         <button type="submit" disabled={loading}>
