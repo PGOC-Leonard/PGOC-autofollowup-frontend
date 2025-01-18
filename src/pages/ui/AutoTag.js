@@ -150,7 +150,7 @@ const AutoTagPage = () => {
             const currentTime = Date.now();
     
             // Only fetch data if 3 seconds have passed since the last fetch
-            if (currentTime - lastUpdateTime >= 3000) {
+            if (currentTime - lastUpdateTime >= 2000) {
               lastUpdateTime = currentTime; // Update the last fetch time
               fetchInitialData();
               console.log("Data fetch triggered", "success");
@@ -180,11 +180,14 @@ const AutoTagPage = () => {
   
     // Listen for focus and blur events to manage the EventSource connection
     const handleVisibilityChange = () => {
+      const currentTime = new Date();
+      const formattedTime = currentTime.toISOString().slice(0, 19).replace('T', ' ');
       if (document.visibilityState === "visible") {
-        console.log("Tab is focused, resuming SSE connection");
+        fetchInitialData(); // Fetch data when tab is focused
+        addMessage(`[${formattedTime}] Tab is focused, updating data connection`);
         createEventSource(); // Resume listening to SSE
       } else {
-        console.log("Tab is not focused, stopping SSE connection");
+        addMessage(`[${formattedTime}] Tab is not focused, saving bandwidth connection`);
         destroyEventSource(); // Stop listening to SSE
       }
     };
