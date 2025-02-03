@@ -44,7 +44,7 @@ const SignupPage = ({ onSwitchToLogin }) => {
       const response = await fetch(`${apiUrl}/verify-email`, {
         method: "POST",
         headers: {
-          "skip_zrok_interstitial" : "true",
+          skip_zrok_interstitial: "true",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, domain }),
@@ -52,10 +52,14 @@ const SignupPage = ({ onSwitchToLogin }) => {
 
       const data = await response.json();
       if (response.ok) {
-        setVerificationStatus("Verification code sent. Please check your email.");
+        setVerificationStatus(
+          "Verification code sent. Please check your email."
+        );
         notify("Verification code sent!", "success");
       } else {
-        setVerificationStatus(data.message || "Failed to send verification code.");
+        setVerificationStatus(
+          data.message || "Failed to send verification code."
+        );
         notify(data.message || "Failed to send verification code.", "error");
       }
     } catch (error) {
@@ -78,14 +82,15 @@ const SignupPage = ({ onSwitchToLogin }) => {
 
     try {
       const response = await fetch(
-        `${apiUrl}/verify-email/${verificationCode}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true",
-          "skip_zrok_interstitial" : "true"
-        },
-      }
+        `${apiUrl}/verify-email/${verificationCode}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+            skip_zrok_interstitial: "true",
+          },
+        }
       );
 
       const data = await response.json();
@@ -141,7 +146,10 @@ const SignupPage = ({ onSwitchToLogin }) => {
     try {
       const response = await fetch(`${apiUrl}/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          skip_zrok_interstitial: "true",
+        },
         body: JSON.stringify(signUpData),
       });
 
