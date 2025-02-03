@@ -44,6 +44,7 @@ const SignupPage = ({ onSwitchToLogin }) => {
       const response = await fetch(`${apiUrl}/verify-email`, {
         method: "POST",
         headers: {
+          "skip_zrok_interstitial" : "true",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, domain }),
